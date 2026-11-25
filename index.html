@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  HOME SCREEN
+  You normally don't need to change this file.
+  To add a tool to the home screen, edit tools.js instead.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Toolbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <h1>🧰 My Toolbox</h1>
+    <p class="subtitle">Handy little apps. Everything runs on your computer, nothing gets uploaded.</p>
+
+    <input id="search" class="search" type="search" placeholder="Search tools…">
+
+    <!-- The tool cards get added in here by the code below -->
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <!-- Load the list of tools, then draw a card for each one -->
+  <script src="tools.js"></script>
+  <script>
+    const grid = document.getElementById("grid");
+    const search = document.getElementById("search");
+
+    // Draws a card for every tool that matches the search text
+    function showTools(filterText) {
+      const text = filterText.toLowerCase();
+      grid.innerHTML = "";
+
+      for (const tool of TOOLS) {
+        // Join all the words of this tool together so we can search them
+        const words = [tool.name, tool.description, ...(tool.tags || [])].join(" ").toLowerCase();
+        if (!words.includes(text)) continue;
+
+        const card = document.createElement("a");
+        card.className = "tool-card";
+        card.href = tool.link;
+        card.innerHTML = `
+          <div class="icon">${tool.icon}</div>
+          <h2>${tool.name}</h2>
+          <p>${tool.description}</p>
+        `;
+        grid.appendChild(card);
+      }
+
+      if (grid.children.length === 0) {
+        const msg = document.createElement("p");
+        msg.className = "subtitle";
+        msg.textContent = `No tools match "${filterText}".`;
+        grid.appendChild(msg);
+      }
+    }
+
+    // Re-draw every time you type in the search box
+    search.addEventListener("input", () => showTools(search.value));
+    showTools("");
+  </script>
+</body>
+</html>

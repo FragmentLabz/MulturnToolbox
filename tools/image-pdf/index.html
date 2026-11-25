@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+  TOOL: Image ↔ PDF
+  This file is the layout (what you see).
+  The behaviour (what happens when you click) lives in script.js.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image ↔ PDF · My Toolbox</title>
+  <!-- "../../" means "go up two folders", back to the toolbox root -->
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="page">
+    <a class="back" href="../../index.html">← All tools</a>
+    <h1>🖼️ Image ↔ PDF</h1>
+    <p class="subtitle">Convert images to a PDF, or a PDF to images. Your files never leave your computer.</p>
+
+    <!-- The two modes. Clicking a tab shows its panel. -->
+    <div class="tabs">
+      <button class="tab active" data-mode="to-pdf">Images → PDF</button>
+      <button class="tab" data-mode="to-images">PDF → Images</button>
+    </div>
+
+    <!-- ========== MODE 1: Images → PDF ========== -->
+    <section id="to-pdf" class="panel">
+      <div id="image-drop" class="dropzone">
+        Drop PNG or JPG files here, or click to choose
+        <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+      </div>
+
+      <!-- The images you picked show up here, in page order -->
+      <ul id="image-list" class="file-list"></ul>
+
+      <p>
+        <label>Page size:
+          <select id="page-size">
+            <option value="fit">Same as each image</option>
+            <option value="a4">A4</option>
+            <option value="letter">US Letter</option>
+          </select>
+        </label>
+      </p>
+
+      <button id="make-pdf" class="primary" disabled>Make PDF</button>
+      <div id="pdf-status" class="status"></div>
+    </section>
+
+    <!-- ========== MODE 2: PDF → Images ========== -->
+    <section id="to-images" class="panel hidden">
+      <div id="pdf-drop" class="dropzone">
+        Drop a PDF here, or click to choose
+        <input id="pdf-input" type="file" accept="application/pdf" hidden>
+      </div>
+
+      <p>
+        <label>Save pages as:
+          <select id="image-format">
+            <option value="png">PNG</option>
+            <option value="jpeg">JPG</option>
+          </select>
+        </label>
+      </p>
+
+      <div id="images-status" class="status"></div>
+      <div id="results" class="results"></div>
+    </section>
+  </div>
+
+  <!--
+    Helper libraries, saved inside the lib/ folder so they work offline:
+      pdf-lib  → builds new PDFs
+      pdf.js   → reads PDFs and draws their pages
+  -->
+  <script src="../../lib/pdf-lib.min.js"></script>
+  <script src="../../lib/pdf.min.js"></script>
+  <script src="../../lib/pdf.worker.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
