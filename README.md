@@ -1,7 +1,5 @@
 # 🧰 My Toolbox
 
-A home for all the little apps you build. It's a plain web app: just HTML, CSS and JavaScript, no installs, no build step, and it works offline.
-
 ## Open it on your Mac
 
 1. Download the whole `toolbox` folder and put it somewhere easy, like your Documents.
